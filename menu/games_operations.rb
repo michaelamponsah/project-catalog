@@ -3,17 +3,17 @@ require_relative '../classes/author'
 require_relative '../preserve_data/game_author'
 
 class Games
-    include GameAuthorData
+  include GameAuthorData
 
-    def initialize
-       @colourizer = Colorizer.new
-       @games = read_game
-       @authors = read_author 
-    end
+  def initialize
+    @colourizer = Colorizer.new
+    @games = read_game
+    @authors = read_author
+  end
 
   def add_game
     @colourizer.colorize_output(36, 'Enter Game details')
-    
+
     @colourizer.colorize_outprint(35, 'Name: ')
     name = gets.chomp
 
@@ -28,15 +28,14 @@ class Games
     case player
     when 'y' then multiplayer = true
     when 'n' then multiplayer = false
-    end    
+    end
 
     new_game = Game.new(multiplayer, last_played_at, publish_date, name)
     @games.push(new_game)
-    
+
     add_author(new_game)
 
     @colourizer.colorize_output(36, 'Game Created successfully')
-
   end
 
   def add_author(game_item)
@@ -55,23 +54,23 @@ class Games
 
   def list_all_games
     if @games.empty?
-        @colourizer.colorize_output(31, 'NO game records found!!')
+      @colourizer.colorize_output(31, 'NO game records found!!')
     else
       @games.each_with_index do |game, index|
-        puts "#{index}) Game_name: #{game.name}, Multiplayer: #{game.multiplayer[0]}, last_played_at: #{game.last_played_at}, publish_date: #{game.publish_date}"
+        print "#{index}) Game_name: #{game.name}, Multiplayer: #{game.multiplayer[0]}, "
+        puts "last_played_at: #{game.last_played_at}, publish_date: #{game.publish_date}"
       end
     end
   end
 
   def list_all_authors
     if @authors.empty?
-        @colourizer.colorize_output(31, 'NO author records found!!')
+      @colourizer.colorize_output(31, 'NO author records found!!')
     else
       @authors.each_with_index do |author, index|
         puts "#{index})  #{author.first_name} #{author.last_name}"
       end
     end
-
   end
 
   def save_game_author_details

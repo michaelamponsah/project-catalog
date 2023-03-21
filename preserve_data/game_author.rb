@@ -3,9 +3,9 @@ require_relative '../classes/game'
 require_relative '../classes/author'
 
 module GameAuthorData
-    # rubocop:disable Style/MutableConstant
-    GAME_FILE_NAME = './data_store/game.json'
-    AUTHOR_FILE_NAME = './data_store/author.json'
+  # rubocop:disable Style/MutableConstant
+  GAME_FILE_NAME = './data_store/game.json'
+  AUTHOR_FILE_NAME = './data_store/author.json'
   # rubocop:enable Style/MutableConstant
 
   def preserve_data(games, authors)
@@ -13,20 +13,19 @@ module GameAuthorData
     authors_arr = []
 
     games.each do |game|
-        games_arr << {
-            name: game.name,
-            last_played_at: game.last_played_at,
-            publish_date: game.publish_date,
-            multiplayer: game.multiplayer[0]
-        }
+      games_arr << {
+        name: game.name,
+        last_played_at: game.last_played_at,
+        publish_date: game.publish_date,
+        multiplayer: game.multiplayer[0]
+      }
     end
 
     authors.each do |author|
-        authors_arr << {
-            first_name: author.first_name,
-            last_name: author.last_name
-        }
-
+      authors_arr << {
+        first_name: author.first_name,
+        last_name: author.last_name
+      }
     end
 
     File.write(GAME_FILE_NAME, JSON.generate(games_arr))
@@ -38,10 +37,10 @@ module GameAuthorData
     File.new(GAME_FILE_NAME.to_s, 'w') unless File.exist?(GAME_FILE_NAME)
     file = File.read(GAME_FILE_NAME)
     data = file.empty? ? [] : JSON.parse(file)
-    
+
     data.each do |el|
-        new_game << Game.new(el['multiplayer'], el['last_played_at'], el['publish_date'], el['name'])
-      end
+      new_game << Game.new(el['multiplayer'], el['last_played_at'], el['publish_date'], el['name'])
+    end
     new_game
   end
 
@@ -52,9 +51,8 @@ module GameAuthorData
     data = file.empty? ? [] : JSON.parse(file)
 
     data.each do |el|
-        new_author << Author.new(el['first_name'], el['last_name'])
+      new_author << Author.new(el['first_name'], el['last_name'])
     end
     new_author
   end
-  
 end
