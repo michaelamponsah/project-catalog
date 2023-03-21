@@ -3,7 +3,7 @@ require_relative './menu/games_operations'
 
 class App
   def initialize
-   @colourizer = Colorizer.new
+    @colourizer = Colorizer.new
     @games = Games.new
   end
 
@@ -36,7 +36,7 @@ class App
   end
 
   def continue
-   @colourizer.colorize_outprint(32, 'Enter option: ')
+    @colourizer.colorize_outprint(32, 'Enter option: ')
     user_option = gets.chomp
 
     case user_option
