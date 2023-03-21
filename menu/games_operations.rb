@@ -29,14 +29,28 @@ class Games
 
 
     @games.push(Game.new(multiplayer, last_played_at, publish_date, name))
+    
+    add_author
 
     @colourizer.colorize_output(36, 'Game Created successfully')
 
   end
 
+  def add_author
+    @colourizer.colorize_output(36, 'Enter Author details')
+
+    @colourizer.colorize_outprint(35, 'first_name: ')
+    first_name = gets.chomp
+
+    @colourizer.colorize_outprint(35, 'last_name: ')
+    last_name = gets.chomp
+
+    @authors.push(Author.new(first_name, last_name))
+  end
+
   def list_all_games
     if @games.empty?
-        @colourizer.colorize_output(31, 'Please insert books first!!')
+        @colourizer.colorize_output(31, 'NO game records found!!')
     else
       @games.each_with_index do |game, index|
         puts game.inspect
