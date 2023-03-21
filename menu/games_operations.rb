@@ -1,7 +1,10 @@
 require_relative '../classes/game'
 require_relative '../classes/author'
+require_relative '../preserve_data/game_author'
 
 class Games
+    include GameAuthorData
+
     def initialize
        @colourizer = Colorizer.new
        @games = []
@@ -69,5 +72,9 @@ class Games
       end
     end
 
+  end
+
+  def save_game_author_details
+    preserve_data(@games, @authors)
   end
 end

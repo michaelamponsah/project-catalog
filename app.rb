@@ -46,6 +46,7 @@ class App
     when '9' then @games.add_game
     when '10'
       puts @colourizer.colorize_output(32, 'Thanks for using the app')
+      @games.save_game_author_details
       exit
     end
   end
