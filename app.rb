@@ -41,6 +41,7 @@ class App
 
     case user_option
     # when '1' then@colourizer.app_work
+    when '9' then @games.add_game
     when '10'
       puts @colourizer.colorize_output(32, 'Thanks for using the app')
       exit
