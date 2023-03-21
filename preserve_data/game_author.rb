@@ -33,5 +33,16 @@ module GameAuthorData
     File.write(AUTHOR_FILE_NAME, JSON.generate(authors_arr))
   end
 
+  def read_game
+    new_game = []
+    File.new(GAME_FILE_NAME.to_s, 'w') unless File.exist?(GAME_FILE_NAME)
+    file = File.read(GAME_FILE_NAME)
+    data = file.empty? ? [] : JSON.parse(file)
+    
+    data.each do |el|
+        new_game << Game.new(el['multiplayer'], el['last_played_at'], el['publish_date'], el['name'])
+      end
+    new_game
+  end
   
 end
