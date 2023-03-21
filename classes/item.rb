@@ -18,4 +18,9 @@ class Item
   def can_be_archived?
     (Date.today.year - @publish_date.year) > 10
   end
+
+  def author=(author)
+    @author = author
+    author.items.push(self) unless author.items.include?(self)
+  end
 end
