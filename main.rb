@@ -1,9 +1,7 @@
-# App entry point
-
-require_relative 'start'
+require_relative 'app'
 
 def main
-  new_app = Start.new
+  new_app = App.new
   new_app.app_start
 end
 
