@@ -9,6 +9,21 @@ class Item
     @archived = archived
   end
 
+  def add_genre=(genre)
+    @genre = genre.name
+    genre.items.push(self) unless genre.items.include?(self)
+  end
+
+  def add_author=(author)
+    @author = author.first_name
+    author.items.push(self) unless author.items.include?(self)
+  end
+
+  def add_label=(label)
+    @label = label.title
+    label.items.push(self) unless label.items.include(self)
+  end
+
   def move_to_archive
     @archived = can_be_archived?
   end
