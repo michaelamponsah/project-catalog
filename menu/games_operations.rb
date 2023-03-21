@@ -27,16 +27,16 @@ class Games
     when 'n' then multiplayer = false
     end    
 
-
-    @games.push(Game.new(multiplayer, last_played_at, publish_date, name))
+    new_game = Game.new(multiplayer, last_played_at, publish_date, name)
+    @games.push(new_game)
     
-    add_author
+    add_author(new_game)
 
     @colourizer.colorize_output(36, 'Game Created successfully')
 
   end
 
-  def add_author
+  def add_author(game_item)
     @colourizer.colorize_output(36, 'Enter Author details')
 
     @colourizer.colorize_outprint(35, 'first_name: ')
@@ -45,7 +45,9 @@ class Games
     @colourizer.colorize_outprint(35, 'last_name: ')
     last_name = gets.chomp
 
-    @authors.push(Author.new(first_name, last_name))
+    game_author = Author.new(first_name, last_name)
+    game_author.add_item(game_item)
+    @authors.push(game_author)
   end
 
   def list_all_games
@@ -53,9 +55,19 @@ class Games
         @colourizer.colorize_output(31, 'NO game records found!!')
     else
       @games.each_with_index do |game, index|
-        puts game.inspect
         puts "#{index}) Game_name: #{game.name}, Multiplayer: #{game.multiplayer[0]}, last_played_at: #{game.last_played_at}, publish_date: #{game.publish_date}"
       end
     end
+  end
+
+  def list_all_authors
+    if @authors.empty?
+        @colourizer.colorize_output(31, 'NO author records found!!')
+    else
+      @authors.each_with_index do |author, index|
+        puts "#{index})  #{author.first_name} #{author.last_name}"
+      end
+    end
+
   end
 end
