@@ -33,4 +33,15 @@ class Games
     @colourizer.colorize_output(36, 'Game Created successfully')
 
   end
+
+  def list_all_games
+    if @games.empty?
+        @colourizer.colorize_output(31, 'Please insert books first!!')
+    else
+      @games.each_with_index do |game, index|
+        puts game.inspect
+        puts "#{index}) Game_name: #{game.name}, Multiplayer: #{game.multiplayer[0]}, last_played_at: #{game.last_played_at}, publish_date: #{game.publish_date}"
+      end
+    end
+  end
 end
