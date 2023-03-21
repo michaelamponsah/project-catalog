@@ -8,7 +8,7 @@ class Games
     def initialize
        @colourizer = Colorizer.new
        @games = read_game
-       @authors = [] 
+       @authors = read_author 
     end
 
   def add_game

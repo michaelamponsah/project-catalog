@@ -44,5 +44,17 @@ module GameAuthorData
       end
     new_game
   end
+
+  def read_author
+    new_author = []
+    File.new(AUTHOR_FILE_NAME.to_s, 'w') unless File.exist?(AUTHOR_FILE_NAME)
+    file = File.read(AUTHOR_FILE_NAME)
+    data = file.empty? ? [] : JSON.parse(file)
+
+    data.each do |el|
+        new_author << Author.new(el['first_name'], el['last_name'])
+    end
+    new_author
+  end
   
 end
