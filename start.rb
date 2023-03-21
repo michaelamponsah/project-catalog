@@ -1,8 +1,10 @@
-require_relative 'app'
+require_relative './operations/app'
+require_relative './operations/games'
 
 class Start
   def initialize
     @app = App.new
+    @games = Games.new
   end
 
   def app_start
