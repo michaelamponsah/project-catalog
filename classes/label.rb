@@ -7,8 +7,7 @@ class Label
   end
 
   def add_item(item)
-    self.items << item
+    items << item
     item.label = self
   end
-
 end
