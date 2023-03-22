@@ -33,12 +33,14 @@ class Games
     new_game = Game.new(multiplayer, last_played_at, publish_date, name)
     @games.push(new_game)
 
-    add_author(new_game)
+    new_author = create_author
+    new_author.add_item(new_game)
+    @authors.push(new_author)
 
     @colourizer.colorize_output(36, 'Game Created successfully')
   end
 
-  def add_author(game_item)
+  def create_author()
     @colourizer.colorize_output(36, 'Enter Author details')
 
     @colourizer.colorize_outprint(35, 'first_name: ')
@@ -47,9 +49,7 @@ class Games
     @colourizer.colorize_outprint(35, 'last_name: ')
     last_name = gets.chomp
 
-    game_author = Author.new(first_name, last_name)
-    game_author.add_item(game_item)
-    @authors.push(game_author)
+    Author.new(first_name, last_name)
   end
 
   def list_all_games
@@ -69,6 +69,7 @@ class Games
     else
       @authors.each_with_index do |author, index|
         puts "#{index})  #{author.first_name} #{author.last_name}"
+        puts author.inspect
       end
     end
   end
