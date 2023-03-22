@@ -1,16 +1,19 @@
 require_relative './item'
 
 class Book < Item
-  def initialize(publish_date, publiser, cover_state, archived: false)
+  attr_reader :genre, :author, :label
+
+  def initialize(publish_date, publisher, cover_state, archived: false)
     super(publish_date, archived)
 
-    @publisher = publiser
+    @publisher = publisher
     @cover_state = cover_state
   end
 
   def can_be_archived?
-    return true if super.can_be_archived? || cover_state == 'bad'
-
+    if (Item.instance_method(:can_be_archived?).bind(self) == true) || @cover_state == 'bad'
+      return true
+    end
     false
   end
 end
