@@ -17,6 +17,6 @@ RSpec.describe Book do
   end
 
   it 'Should be archivable' do
-    expect (book.can_be_archived?).should be(true)
+    expect book.can_be_archived?.should be(true)
   end
 end

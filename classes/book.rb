@@ -11,9 +11,8 @@ class Book < Item
   end
 
   def can_be_archived?
-    if (Item.instance_method(:can_be_archived?).bind(self) == true) || @cover_state == 'bad'
-      return true
-    end
+    return true if (Item.instance_method(:can_be_archived?).bind(self) == true) || @cover_state == 'bad'
+
     false
   end
 end
