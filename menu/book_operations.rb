@@ -32,10 +32,8 @@ class BookActions
 
   def add_book(published_date, publisher, cover_state, other_props)
     new_book = Book.new(published_date, publisher, cover_state)
-
     label = Label.new('book')
     label.add_item(new_book)
-
     @books << new_book
   end
 end
