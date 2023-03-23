@@ -1,7 +1,8 @@
 require 'date'
 
 class Item
-  attr_writer :genre, :author, :source, :label
+  attr_writer :genre, :source, :label
+  attr_reader :author
 
   def initialize(publish_date, archived)
     @id = Random.rand(1..1000)
@@ -17,5 +18,10 @@ class Item
 
   def can_be_archived?
     (Date.today.year - @publish_date.year) > 10
+  end
+
+  def author=(author)
+    @author = author
+    author.items.push(self) unless author.items.include?(self)
   end
 end
