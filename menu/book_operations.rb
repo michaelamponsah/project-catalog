@@ -1,22 +1,16 @@
 require_relative '../classes/book'
 require_relative '../classes/file_processor'
-require_relative '../modules/label'
+require_relative '../preserve_data/label'
 
 class BookActions
   include LabelData
 
   def initialize
     @books = []
-    @book_file_processor = FileProcessor.new('./collections/book.json')
+    @book_file_processor = FileProcessor.new('./data_store/book.json')
   end
 
   def create_book
-    print 'Author Firstname: '
-    author_fname = gets.chomp
-
-    print 'Author Lastname: '
-    author_lname = gets.chomp
-
     print 'Publisher: '
     publisher = gets.chomp
 
@@ -30,8 +24,7 @@ class BookActions
       return
     end
 
-    other_props = { author_fname: author_fname, author_lname: author_lname }
-    add_book(published_date, publisher, cover_state, other_props)
+    add_book(published_date, publisher, cover_state)
   end
 
   def list_books
@@ -51,7 +44,7 @@ class BookActions
     end
   end
 
-  def add_book(published_date, publisher, cover_state, _other_props)
+  def add_book(published_date, publisher, cover_state)
     new_book = Book.new(published_date, publisher, cover_state)
     add_label('book', new_book)
     @books << new_book

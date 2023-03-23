@@ -3,7 +3,7 @@ require_relative '../classes/file_processor'
 
 module LabelData
   def add_label(resource_type, data)
-    label_file_processor = FileProcessor.new('./collections/label.json')
+    label_file_processor = FileProcessor.new('./data_store/label.json')
     print "Provide #{resource_type}'s label title: "
     title = gets.chomp
     print "Provide #{resource_type}'s label color: "
