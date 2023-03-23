@@ -69,7 +69,7 @@
 
 > Find below our demo video link.
 
-- [Live Demo Link](https://drive.google.com/file/d/1Et1ZrB2sjp1_zHeM-88DUd_u2zn79q5d/view?usp=sharing)
+- [Demo Video Link](https://drive.google.com/file/d/1Et1ZrB2sjp1_zHeM-88DUd_u2zn79q5d/view?usp=sharing)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
