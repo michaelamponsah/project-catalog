@@ -131,8 +131,6 @@ run tests with the command:
 
 ## 👥 Authors <a name="authors"></a>
 
-> Mention all of the collaborators of this project.
-
 👤 **Michael Amponsah**
 
 - GitHub: [@michaelamponsah](https://github.com/michaelamponsah)
@@ -177,8 +175,6 @@ Feel free to check the [issues page](https://github.com/michaelamponsah/project-
 
 ## ⭐️ Show your support <a name="support"></a>
 
-> Write a message to encourage readers to support your project
-
 If you like this project, give it a star
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -187,7 +183,6 @@ If you like this project, give it a star
 
 ## 🙏 Acknowledgments <a name="acknowledgements"></a>
 
-> Give credit to everyone who inspired your codebase.
 
 We would like to thank Microverse for making available resources to complete this project
 
