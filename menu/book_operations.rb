@@ -33,13 +33,15 @@ class BookActions
   end
 
   def list_books
-    if @books.empty?
+    data = @file_processor.read_from_file()
+
+    if data.empty?
       print "\nYou have no books in the list\n\n"
       return
     end
 
     print "\nList of books\n\n"
-    @books.each { |book| puts "#{book}" }
+    data.each.with_index { |book, index| puts "#{index + 1} - Publisher: #{book['publisher']}\n    Publish date: #{book['published_date']}\n    Cover state: #{book['cover_state']}\n    Label: #{book['label']}\n\n" }
   end
 
   def add_book(published_date, publisher, cover_state, _other_props)
@@ -49,10 +51,10 @@ class BookActions
     @books << new_book
 
     data_hash = {
-      'published_date': new_book.publish_date,
-      'publisher': new_book.publisher,
-      'cover_state': new_book.cover_state,
-      'label': new_book.label.title
+      published_date: new_book.publish_date,
+      publisher: new_book.publisher,
+      cover_state: new_book.cover_state,
+      label: new_book.label.title
     }
 
     @file_processor.write_to_file(data_hash)
