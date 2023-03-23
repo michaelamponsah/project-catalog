@@ -2,7 +2,7 @@ require_relative '../classes/file_processor'
 
 class LabelActions
   def initialize
-    @label_file_processor = FileProcessor.new('./collections/label.json')
+    @label_file_processor = FileProcessor.new('./data_store/label.json')
   end
 
   def list_labels

@@ -36,7 +36,7 @@ class App
       '11': 'exit'
     }
 
-    puts "\e[33mPlease choose an option by entering a number:\e[0m"
+    puts "\n\e[33mPlease choose an option by entering a number:\e[0m"
     action_list.each do |index, command|
       puts "#{index} - #{command}"
     end
@@ -48,14 +48,13 @@ class App
     user_option = gets.chomp
 
     case user_option
-    when '1'
-      @book.list_books
-    when '2'
-      @label.list_labels
+    when '1' then @book.list_books
+    when '2' then @label.list_labels
     when '3' then @music_genre.list_music_albums
     when '4' then @music_genre.list_genres
     when '5' then @games.list_all_games
     when '6' then @games.list_all_authors
+    when '7' then @book.create_book
     when '8' then @music_genre.add_music_album
     when '9' then @games.add_game
     when '10' then @music_genre.create_genre
