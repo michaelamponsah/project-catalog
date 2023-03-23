@@ -45,7 +45,10 @@ class BookActions
 
     print "\nList of books\n\n"
     data.each.with_index do |book, index|
-      puts "#{index + 1} - Publisher: #{book['publisher']}\n    Publish date: #{book['published_date']}\n    Cover state: #{book['cover_state']}\n    Label: #{book['label']}\n\n"
+      puts "#{index + 1} - Publisher: #{book['publisher']}
+    Publish date: #{book['published_date']}
+    Cover state: #{book['cover_state']}
+    Label: #{book['label']}\n\n"
     end
   end
 
