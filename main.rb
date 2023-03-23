@@ -1,4 +1,4 @@
-require_relative 'app'
+require_relative './app'
 
 def main
   new_app = App.new
