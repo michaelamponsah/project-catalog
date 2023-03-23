@@ -1,8 +1,8 @@
-require_relative './classes/item'
-require_relative './classes/genre'
-require_relative './classes/music_album'
-require_relative './preserve_data/preserve_albums'
-require_relative './preserve_data/preserve_genres'
+require_relative '../classes/item'
+require_relative '../classes/genre'
+require_relative '../classes/music_album'
+require_relative '../preserve_data/preserve_albums'
+require_relative '../preserve_data/preserve_genres'
 
 class MusicGenre
   attr_accessor :genres, :music_albums

@@ -1,5 +1,6 @@
 require_relative './menu/colorize'
 require_relative './menu/games_operations'
+require_relative './menu/music_operations'
 
 class App
   def initialize
@@ -27,7 +28,7 @@ class App
       '7': 'Add a book',
       '8': 'Add a music album',
       '9': 'Add a game',
-      '10': 'Add a genre'
+      '10': 'Add a genre',
       '11': 'exit'
     }
 
