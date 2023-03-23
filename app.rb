@@ -42,6 +42,8 @@ class App
     user_option = gets.chomp
 
     case user_option
+    when '1'
+      @book.list_books
     when '7'
       @book.create_book
     when '10'
