@@ -6,15 +6,17 @@ class FileProcessor
   end
 
   def write_to_file(data)
-    File.new(@file_ref, 'a') unless File.exist?(@file_ref)
-    File.write(@file_ref, JSON.dump(data), mode: 'a')
+    File.new(@file_ref, 'w') unless File.exist?(@file_ref)
+    resource = File.empty?(@file_ref)? [] : JSON.parse( File.read(@file_ref))
+    resource << data
+    File.write(@file_ref, JSON.dump(resource), mode: 'w')
   end
 
   def read_from_file
     file = File.read(@file_ref)
-    data_hash = JSON.parse(file)
-    return data_hash if data_hash
+    data = JSON.parse(file)
+    return 'No record found' if data.empty?
 
-    puts 'No record found'
+    data
   end
 end
