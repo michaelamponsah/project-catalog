@@ -1,9 +1,11 @@
 require_relative '../classes/book'
 require_relative '../classes/label'
+require_relative '../classes/file_processor'
 
 class BookActions
   def initialize
     @books = []
+    @file_processor = FileProcessor.new('./collections/book.json')
   end
 
   def create_book
@@ -21,7 +23,7 @@ class BookActions
 
     print 'Cover state [good/bad]: '
     cover_state = gets.chomp
-    if (cover_state != 'good' && cover_state != 'bad')
+    if cover_state != 'good' && cover_state != 'bad'
       print 'Invalid entry, cover state should be either good/bad. '
       return
     end
@@ -30,10 +32,29 @@ class BookActions
     add_book(published_date, publisher, cover_state, other_props)
   end
 
-  def add_book(published_date, publisher, cover_state, other_props)
+  def list_books
+    if @books.empty?
+      print "\nYou have no books in the list\n\n"
+      return
+    end
+
+    print "\nList of books\n\n"
+    @books.each { |book| puts "#{book}" }
+  end
+
+  def add_book(published_date, publisher, cover_state, _other_props)
     new_book = Book.new(published_date, publisher, cover_state)
     label = Label.new('book')
     label.add_item(new_book)
     @books << new_book
+
+    data_hash = {
+      'published_date': new_book.publish_date,
+      'publisher': new_book.publisher,
+      'cover_state': new_book.cover_state,
+      'label': new_book.label.title
+    }
+
+    @file_processor.write_to_file(data_hash)
   end
 end
