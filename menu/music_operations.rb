@@ -6,7 +6,7 @@ require_relative '../preserve_data/preserve_genres'
 
 class MusicGenre
   attr_accessor :genres, :music_albums
-    
+
   include PreserveAlbumsData
   include PreserveGenresData
 
@@ -18,7 +18,7 @@ class MusicGenre
 
   def list_music_albums
     if @music_albums.empty?
-        @colourizer.colorize_output(31, 'There are no music albums to display')
+      @colourizer.colorize_output(31, 'There are no music albums to display')
     else
       puts 'Existing music albums:'
       @music_albums.each_with_index do |album, index|
@@ -26,9 +26,10 @@ class MusicGenre
       end
     end
   end
+
   def list_genres
     if @genres.empty?
-        @colourizer.colorize_output(31, 'There are no genres to display')
+      @colourizer.colorize_output(31, 'There are no genres to display')
     else
       puts 'Existing genres:'
       @genres.each_with_index do |genre, index|
@@ -39,7 +40,7 @@ class MusicGenre
 
   def add_music_album
     @colourizer.colorize_output(36, 'Enter Music album details')
-    
+
     @colourizer.colorize_outprint(35, 'Album name: ')
     name = gets.chomp
 
@@ -66,7 +67,7 @@ class MusicGenre
 
   def create_genre
     @colourizer.colorize_output(36, 'Enter genre details')
-    
+
     @colourizer.colorize_outprint(35, 'Enter genre name: ')
     genre = gets.chomp
 
@@ -75,5 +76,4 @@ class MusicGenre
     @colourizer.colorize_output(36, 'New genre has been successfully created')
     store_genres(@genres)
   end
-
 end

@@ -38,6 +38,7 @@ class App
     end
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def continue
     @colourizer.colorize_outprint(32, 'Enter option: ')
     user_option = gets.chomp
@@ -57,4 +58,6 @@ class App
       exit
     end
   end
+
+  # rubocop:enable Metrics/CyclomaticComplexity
 end
