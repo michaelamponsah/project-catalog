@@ -7,6 +7,7 @@ class App
     @colourizer = Colorizer.new
     @games = Games.new
     @book = BookActions.new
+    @music_album = MusicAlbum.new
   end
 
   def app_start
