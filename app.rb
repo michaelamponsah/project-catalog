@@ -1,13 +1,14 @@
 require_relative './menu/colorize'
 require_relative './menu/games_operations'
 require_relative './menu/book_operations'
+require_relative './menu/label_operations'
 
 class App
   def initialize
     @colourizer = Colorizer.new
     @games = Games.new
     @book = BookActions.new
-    @music_album = MusicAlbum.new
+    @label = LabelActions.new
   end
 
   def app_start
@@ -45,6 +46,8 @@ class App
     case user_option
     when '1'
       @book.list_books
+    when '2'
+      @label.list_labels
     when '7'
       @book.create_book
     when '10'
