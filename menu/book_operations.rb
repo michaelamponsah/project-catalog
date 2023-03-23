@@ -30,7 +30,6 @@ class BookActions
       return
     end
 
-
     other_props = { author_fname: author_fname, author_lname: author_lname }
     add_book(published_date, publisher, cover_state, other_props)
   end
