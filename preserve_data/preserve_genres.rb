@@ -1,24 +1,29 @@
 require 'json'
 
 module PreserveGenresData
+  @@genre_data = []
   def store_genres(genres)
     file = './data_store/genres.json'
 
     # Read the contents of the file and handle empty file / invalid JSON cases
     begin
-      data = File.exist?(file) ? JSON.parse(File.read(file)) : []
+      @@genre_data = File.exist?(file) ? JSON.parse(File.read(file)) : []
     rescue JSON::ParserError, Errno::ENOENT
-      data = []
+      @@genre_data = []
     end
 
     genres.each do |genre|
-      next if data.any? do |existing_genre|
+      next if @@genre_data.any? do |existing_genre|
         existing_genre['name'] == genre.name
       end
 
-      data << { name: genre.name }
+      @@genre_data << { name: genre.name }
     end
-    File.write(file, JSON.pretty_generate(data))
+  end
+  
+  def persist_genre_data
+    file = './data_store/genres.json'
+    File.write(file, JSON.pretty_generate(@@genre_data))
   end
 
   def load_genres
