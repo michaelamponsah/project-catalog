@@ -1,34 +1,43 @@
 require 'json'
 
 module PreserveGenresData
-  def store_genres(genres)
-    file = './data_store/genres.json'
+  $genre_data = []
+  # rubocop:disable Style/MutableConstant
+  GENRE_FILE_PATH = './data_store/genres.json'
+  # rubocop:enable Style/MutableConstant
 
+  def store_genres(genres)
     # Read the contents of the file and handle empty file / invalid JSON cases
     begin
-      data = File.exist?(file) ? JSON.parse(File.read(file)) : []
+      $genre_data = File.exist?(GENRE_FILE_PATH) ? JSON.parse(File.read(GENRE_FILE_PATH)) : []
     rescue JSON::ParserError, Errno::ENOENT
-      data = []
+      $genre_data = []
     end
 
     genres.each do |genre|
-      next if data.any? do |existing_genre|
+      next if $genre_data.any? do |existing_genre|
         existing_genre['name'] == genre.name
       end
 
-      data << { name: genre.name }
+      $genre_data << { name: genre.name }
     end
-    File.write(file, JSON.pretty_generate(data))
+  end
+
+  def persist_genre_data
+    return if $genre_data.empty?
+
+    File.write(GENRE_FILE_PATH, JSON.pretty_generate($genre_data))
   end
 
   def load_genres
-    file = './data_store/genres.json'
-    return [] unless File.exist?(file)
+    return [] unless File.exist?(GENRE_FILE_PATH)
 
-    if File.empty?(file)
+    # return [] ifGENRE_FILE_PATH.nil? || !File.exist?(GENRE_FILE_PATH)
+
+    if File.empty?(GENRE_FILE_PATH)
       []
     else
-      JSON.parse(File.read(file)).map do |genre|
+      JSON.parse(File.read(GENRE_FILE_PATH)).map do |genre|
         Genre.new(genre['name'])
       end
     end

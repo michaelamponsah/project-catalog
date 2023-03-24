@@ -3,8 +3,15 @@ require_relative './menu/games_operations'
 require_relative './menu/book_operations'
 require_relative './menu/label_operations'
 require_relative './menu/music_operations'
+require_relative './preserve_data/label'
+require_relative './preserve_data/preserve_albums'
+require_relative './preserve_data/preserve_genres'
 
 class App
+  include LabelData
+  include PreserveAlbumsData
+  include PreserveGenresData
+
   def initialize
     @colourizer = Colorizer.new
     @games = Games.new
@@ -61,6 +68,10 @@ class App
     when '11'
       puts @colourizer.colorize_output(32, 'Thanks for using the app')
       @games.save_game_author_details
+      @book.persist_data
+      persist_label_data
+      persist_album_data
+      persist_genre_data
       exit
     end
   end

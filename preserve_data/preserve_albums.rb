@@ -2,38 +2,54 @@ require 'json'
 
 module PreserveAlbumsData
   # rubocop:disable Metrics
+  # rubocop:disable Style/MutableConstant
+  ALBUM_FILE_PATH = './data_store/albums.json'
+  # rubocop:enable Style/MutableConstant
+
+  $album_data = []
+
   def store_albums(albums)
-    file = './data_store/albums.json'
+    $album_data ||= []
 
     # Read the contents of the file and handle empty file / invalid JSON cases
     begin
-      data = File.exist?(file) ? JSON.parse(File.read(file)) : []
+      $album_data = File.exist?(ALBUM_FILE_PATH) ? JSON.parse(File.read(ALBUM_FILE_PATH)) : []
     rescue JSON::ParserError, Errno::ENOENT
-      data = []
+      $album_data = []
     end
 
     albums.each do |album|
-      next if data.any? do |existing_album|
+      next if $album_data.any? do |existing_album|
         existing_album['name'] == album.name && existing_album['publish_date'] == album.publish_date
-      end || data.any? { |existing_album| existing_album['name'] == album.name }
+      end || $album_data.any? { |existing_album| existing_album['name'] == album.name }
 
-      data << { name: album.name, publish_date: album.publish_date, on_spotify: album.on_spotify }
+      $album_data << { name: album.name, publish_date: album.publish_date, on_spotify: album.on_spotify }
     end
-
-    File.write(file, JSON.pretty_generate(data))
   end
 
   # rubocop:enable Metrics
 
-  def load_albums
-    file = './data_store/albums.json'
-    return [] unless File.exist?(file)
+  def persist_album_data
+    return if $album_data.empty?
 
-    if File.empty?(file)
+    File.write(ALBUM_FILE_PATH, JSON.pretty_generate($album_data))
+  end
+
+  def load_albums
+    if !File.exist?(ALBUM_FILE_PATH) || File.size?(ALBUM_FILE_PATH).nil?
       []
     else
-      JSON.parse(File.read(file)).map do |album|
-        MusicAlbum.new(album['name'], album['publish_date'], on_spotify: album['on_spotify'])
+      begin
+        parsed_data = JSON.parse(File.read(ALBUM_FILE_PATH))
+        if parsed_data.nil?
+          []
+        else
+          parsed_data.map do |album|
+            MusicAlbum.new(album['name'], album['publish_date'], on_spotify: album['on_spotify'])
+          end
+        end
+      rescue JSON::ParserError
+        []
       end
     end
   end

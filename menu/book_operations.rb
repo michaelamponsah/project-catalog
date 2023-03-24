@@ -44,10 +44,15 @@ class BookActions
     end
   end
 
+  def persist_data
+    @book_file_processor.write_to_file(@books)
+  end
+
+  private
+
   def add_book(published_date, publisher, cover_state)
     new_book = Book.new(published_date, publisher, cover_state)
     add_label('book', new_book)
-    @books << new_book
 
     data_hash = {
       published_date: new_book.publish_date,
@@ -56,6 +61,6 @@ class BookActions
       label: new_book.label.title
     }
 
-    @book_file_processor.write_to_file(data_hash)
+    @books << data_hash
   end
 end

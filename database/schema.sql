@@ -1,35 +1,19 @@
 CREATE DATABASE catalog;
 
-CREATE TABLE item (
-    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    genre VARCHAR(100),
-    author VARCHAR(100),
-    label VARCHAR(100),
+CREATE TABLE label (
+    id  INT GENERATED ALWAYS AS IDENTITY,
+    title VARCHAR(100),
+    color VARCHAR(100),
+    PRIMARY KEY(id)
+);
+
+CREATE TABLE book (
+    id  INT,
+    publisher VARCHAR(100),
     publish_date DATE,
-    archived BOOLEAN
-);
-
-CREATE TABLE author(
-  id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  first_name VARCHAR(100),
-  last_name VARCHAR(100),
-  items ARRAY
-);
-
-CREATE TABLE games (
-  id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  last_played_at DATE,
-  publish_date Date,
-  archived BOOLEAN,
-  multiplayer BOOLEAN,
-  label_id INT,
-  genre_id INT,
-  source_id INT,
-  author_id INT,
-  FOREIGN KEY (author_id) REFERENCES authors(id),
-  FOREIGN KEY (label_id) REFERENCES labels(id),
-  FOREIGN KEY (source_id) REFERENCES sources(id),
-  FOREIGN KEY (genre_id) REFERENCES genres(id),
+    archived BOOLEAN,
+    cover_state VARCHAR(100),
+    CONSTRAINT FK_bookId FOREIGN KEY(id) REFERENCES label(id)
 );
 
 CREATE TABLE genre (
@@ -37,30 +21,24 @@ CREATE TABLE genre (
     name VARCHAR(100)
 );
 
-CREATE TABLE music_albums (
+CREATE TABLE music_album (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     name VARCHAR(100),
-    publish_date DATE,
     on_spotify BOOLEAN,
-    archived BOOLEAN,
-    genre_id INT,
-    genre VARCHAR(100),
-    author VARCHAR(100),
-    label VARCHAR(100),
-    CONSTRAINT fk_genre FOREIGN KEY(genre_id) REFERENCES genre(id)
+    CONSTRAINT fk_albumId FOREIGN KEY(ID) REFERENCES item(ID)
 );
 
-CREATE TABLE labels (
-    id  INT GENERATED ALWAYS AS IDENTITY,
-    title VARCHAR(100),
-    color VARCHAR(100),
-    PRIMARY KEY(id)
+CREATE TABLE author(
+  id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  first_name VARCHAR(100),
+  last_name VARCHAR(100),
 );
 
-CREATE TABLE books (
-    id  INT,
-    title VARCHAR(100),
-    publisher VARCHAR(100),
-    cover_state VARCHAR(100),
-    FOREIGN KEY(id) REFERENCES item(id)
+CREATE TABLE game (
+  id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  last_played_at DATE,
+  multiplayer BOOLEAN,
+  publish_date DATE,
+  archived BOOLEAN,
+  CONSTRAINT fk_authorId FOREIGN KEY (id) REFERENCES author(id),
 );
