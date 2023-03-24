@@ -8,7 +8,7 @@ CREATE TABLE label (
 );
 
 CREATE TABLE book (
-    id  INT,
+    id  INT INT CONSTRAINT ID_BOOKS_PK PRIMARY KEY,
     publisher VARCHAR(100),
     publish_date DATE,
     archived BOOLEAN,
