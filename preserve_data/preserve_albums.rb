@@ -2,13 +2,13 @@ require 'json'
 
 module PreserveAlbumsData
   # rubocop:disable Metrics
+  @@file = './data_store/albums.json'
   @@album_data = []
-  def store_albums(albums)
-    file = './data_store/albums.json'
 
+  def store_albums(albums)
     # Read the contents of the file and handle empty file / invalid JSON cases
     begin
-      @@album_data = File.exist?(file) ? JSON.parse(File.read(file)) : []
+      @@album_data = File.exist?(@@file) ? JSON.parse(File.read(@@file)) : []
     rescue JSON::ParserError, Errno::ENOENT
       @@album_data = []
     end
@@ -25,18 +25,17 @@ module PreserveAlbumsData
   # rubocop:enable Metrics
 
   def persist_album_data
-    file = './data_store/albums.json'
-    File.write(file, JSON.pretty_generate( @@album_data))
+    return if @@album_data.empty?
+    File.write(@@file, JSON.pretty_generate(@@album_data))
   end
 
   def load_albums
-    file = './data_store/albums.json'
-    return [] unless File.exist?(file)
+    return [] unless File.exist?(@@file)
 
-    if File.empty?(file)
+    if File.empty?(@@file)
       []
     else
-      JSON.parse(File.read(file)).map do |album|
+      JSON.parse(File.read(@@file)).map do |album|
         MusicAlbum.new(album['name'], album['publish_date'], on_spotify: album['on_spotify'])
       end
     end

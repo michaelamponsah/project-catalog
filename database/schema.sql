@@ -40,5 +40,5 @@ CREATE TABLE game (
   multiplayer BOOLEAN,
   publish_date DATE,
   archived BOOLEAN,
-  CONSTRAINT fk_authorId FOREIGN KEY (author_id) REFERENCES author(id),
+  CONSTRAINT fk_authorId FOREIGN KEY (id) REFERENCES author(id),
 );

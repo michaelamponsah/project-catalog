@@ -6,6 +6,7 @@ class FileProcessor
   end
 
   def write_to_file(data_arr)
+    return if data_arr.empty?
     File.new(@file_ref, 'w') unless File.exist?(@file_ref)
     resource = File.empty?(@file_ref) ? [] : JSON.parse(File.read(@file_ref))
     updated_resource = data_arr.map do |data|
