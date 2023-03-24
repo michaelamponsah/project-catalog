@@ -4,9 +4,11 @@ require_relative './menu/book_operations'
 require_relative './menu/label_operations'
 require_relative './menu/music_operations'
 require_relative './preserve_data/label'
+require_relative './preserve_data/preserve_albums'
 
 class App
   include LabelData
+  include PreserveAlbumsData
 
   def initialize
     @colourizer = Colorizer.new
@@ -66,6 +68,7 @@ class App
       @games.save_game_author_details
       @book.persist_data
       persist_label_data
+      persist_album_data
       exit
     end
   end
