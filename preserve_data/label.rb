@@ -2,7 +2,7 @@ require_relative '../classes/label'
 require_relative '../classes/file_processor'
 
 module LabelData
-  @@label_arr = []
+  $label_arr = []
 
   def add_label(resource_type, data)
     print "Provide #{resource_type}'s label title: "
@@ -17,11 +17,11 @@ module LabelData
       color: label.color
     }
 
-    @@label_arr << data_hash
+    $label_arr << data_hash
   end
 
   def persist_label_data
     label_file_processor = FileProcessor.new('./data_store/label.json')
-    label_file_processor.write_to_file(@@label_arr)
+    label_file_processor.write_to_file($label_arr)
   end
 end
