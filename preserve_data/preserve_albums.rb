@@ -9,6 +9,8 @@ module PreserveAlbumsData
   $album_data = []
 
   def store_albums(albums)
+    $album_data ||= []
+
     # Read the contents of the file and handle empty file / invalid JSON cases
     begin
       $album_data = File.exist?(ALBUM_FILE_PATH) ? JSON.parse(File.read(ALBUM_FILE_PATH)) : []
@@ -30,26 +32,21 @@ module PreserveAlbumsData
   def persist_album_data
     return if $album_data.empty?
 
-    File.write(ALBUM_FILE_PATH, JSON.pretty_generate(@album_data))
+    File.write(ALBUM_FILE_PATH, JSON.pretty_generate($album_data))
   end
-
-  # def load_albums
-  #  if !File.exist?(ALBUM_FILE_PATH) || File.size?(ALBUM_FILE_PATH).nil?
-  #     []
-  #   else
-  #     JSON.parse(File.read(ALBUM_FILE_PATH)).map do |album|
-  #       MusicAlbum.new(album['name'], album['publish_date'], on_spotify: album['on_spotify'])
-  #     end
-  #   end
-  # end
 
   def load_albums
     if !File.exist?(ALBUM_FILE_PATH) || File.size?(ALBUM_FILE_PATH).nil?
       []
     else
       begin
-        JSON.parse(File.read(ALBUM_FILE_PATH)).map do |album|
-          MusicAlbum.new(album['name'], album['publish_date'], on_spotify: album['on_spotify'])
+        parsed_data = JSON.parse(File.read(ALBUM_FILE_PATH))
+        if parsed_data.nil?
+          []
+        else
+          parsed_data.map do |album|
+            MusicAlbum.new(album['name'], album['publish_date'], on_spotify: album['on_spotify'])
+          end
         end
       rescue JSON::ParserError
         []
